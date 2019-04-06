@@ -63,7 +63,7 @@ rails webpacker:install
 
 rails s -b 0.0.0.0
 
-
+rails g controller CalendlyFeed
 
 # No need since can run via rails s
 # Apache
@@ -100,3 +100,5 @@ curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 
 ```
+
+
