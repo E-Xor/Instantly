@@ -35,6 +35,7 @@ apt install curl less vim git bash-completion -y
 
 vi ~/.bashrc
 # Find 'bash_completion' code and uncomment it.
+alias app='cd /var/www/vhosts/Instantly/current'
 
 # RVM
 
@@ -228,6 +229,9 @@ sudo a2dissite 000-default
 sudo service apache2 reload
 sudo chmod 755 /var/log/apache2/
 sudo chmod 644 /var/log/apache2/*
+
+# Ran into issue with Rails secrets file, it was looking for secrets.yml instead of credentials.yml.enc in production
+
 ```
 
 

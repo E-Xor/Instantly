@@ -10,7 +10,7 @@ set :user,        'deploy'
 set :rvm_ruby_version, 'ruby-2.6.2@instantly'
 
 # Symlinks to dirs in shared folder
-set :linked_dirs, %w{bin log tmp public/assets}
+set :linked_dirs, %w{log tmp public/assets} # Removed bin, was causing issues with rails command in production
 
 set :keep_releases, 2
 
@@ -19,13 +19,21 @@ set :ssh_options, { forward_agent: true, user: 'deploy' }
 # Defaults are --deployment --quiet
 set :bundle_flags, '--deployment'
 
-set :assets_roles, [] # temporarily disable assets
-
 namespace :deploy do
+
+  before 'symlink:shared', :copy_configs do
+    on roles(:web) do
+      within release_path do
+        info ' ===========> COPY CONFIGS'
+        execute "cp /home/deploy/configs/* #{release_path}/config/"
+      end
+    end
+  end
 
   desc 'Restart application'
   task :restart do
-    on roles(:app) do
+    on roles(:web) do
+      info ' ===========> RESTART APP'
       execute :touch, release_path.join('tmp/restart.txt')
     end
   end
