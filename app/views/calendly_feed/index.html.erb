@@ -1,10 +1,26 @@
-Calendly echo: <%= @calanedly_echo %><br><br>
+<div id='calendly-name'><%= @me['data']['attributes']['name'] %></div>
+<div id='calendly-url'>
+  <a href="<%= @me['data']['attributes']['url'] %>" target="_blank">Schedule an event</a>
+</div>
 
-Calendly event types: <%= @calanedly_event_types %><br><br>
+<div id='line'>========</div>
 
-Calendly me: <%= @calanedly_me %><br><br>
-
-Events: <br>
 <% @events.each do |e| %>
-  <%= e['attributes']['start_time'] %> - <%= e['attributes']['end_time'] %><br>
+========
+  <div class='event-card'>
+    <div class="event-start">On <%= e.start_time.strftime("%B %d, %Y") %> at <%= e.start_time.strftime("%l:%M%P") %></div>
+    <div class="event-end">On <%= e.end_time.strftime("%B %d, %Y") %> at <%= e.end_time.strftime("%l:%M%P") %></div>
+    <div class="event-past-future">
+      <% if e.start_time < Time.now %>
+        Past
+      <% else %>
+        Future
+      <% end %>
+    </div>
+    <div class="event-length"><%= distance_of_time_in_words(e.end_time-e.start_time) %></div>
+    <div class="event-name"><%= e.invitee_event_name %></div>
+    <div class="event-invitee-name"><%= e.invitee_name %></div>
+    <div class="event-invitee-email"><%= e.invitee_email %></div>
+  </div> 
+========<br>
 <% end %>

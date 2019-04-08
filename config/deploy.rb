@@ -36,7 +36,7 @@ namespace :deploy do
     on roles(:web) do
       within release_path do
         with rails_env: fetch(:rails_env) do
-          info '===========>> RUN MIGRATIONS'
+          info '===========> RUN MIGRATIONS'
           execute :rake, 'db:migrate'
         end
       end
