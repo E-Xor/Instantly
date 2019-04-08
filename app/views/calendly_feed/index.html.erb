@@ -3,3 +3,7 @@ Index ERB<br><br>
 Calendly echo: <%= @calanedly_echo %><br><br>
 Calendly event types: <%= @calanedly_event_types %><br><br>
 Calendly me: <%= @calanedly_me %><br><br>
+Events: <br>
+<% @events.each do |e| %>
+  <%= e['attributes']['start_time'] %> - <%= e['attributes']['end_time'] %><br>
+<% end %>
