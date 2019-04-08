@@ -1,9 +1,6 @@
 class CalendlyFeedController < ApplicationController
   protect_from_forgery except: :webhook_catch
   def index
-    Rails.logger.debug "MAKSIM Index hit"
-    Rails.logger.debug "MAKSIM API Key: #{SETTINGS[:calendly_api_key]}"
-
     header = {
       'X-TOKEN' => SETTINGS[:calendly_api_key],
       'Content-Type'  => 'application/json'

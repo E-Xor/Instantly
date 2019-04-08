@@ -21,11 +21,24 @@ set :bundle_flags, '--deployment'
 
 namespace :deploy do
 
+  desc 'Put real configs in place'
   before 'symlink:shared', :copy_configs do
     on roles(:web) do
       within release_path do
-        info ' ===========> COPY CONFIGS'
+        info '===========> COPY CONFIGS'
         execute "cp /home/deploy/configs/* #{release_path}/config/"
+      end
+    end
+  end
+
+  desc 'Migrations'
+  before :restart, :run_migrations do
+    on roles(:web) do
+      within release_path do
+        with rails_env: fetch(:rails_env) do
+          info '===========>> RUN MIGRATIONS'
+          execute :rake, 'db:migrate'
+        end
       end
     end
   end
@@ -33,7 +46,7 @@ namespace :deploy do
   desc 'Restart application'
   task :restart do
     on roles(:web) do
-      info ' ===========> RESTART APP'
+      info '===========> RESTART APP'
       execute :touch, release_path.join('tmp/restart.txt')
     end
   end

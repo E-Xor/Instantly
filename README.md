@@ -19,7 +19,7 @@ source ~/.profile
 
 instantly-run
 
-docker commit -m "Start to Passenger" fcfe9dcffb7b instantly:latest
+docker commit -m "Instantly" fcfe9dcffb7b instantly:latest
 
 
 ```
@@ -65,23 +65,6 @@ rails webpacker:install
 rails s -b 0.0.0.0
 
 rails g controller CalendlyFeed
-
-# No need since can run via rails s
-# Apache
-
-apt install apache2 -y
-
-# Passenger
-
-# Found here https://www.phusionpassenger.com/library/install/apache/install/oss/bionic/
-apt install -y dirmngr gnupg
-apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7
-apt install -y apt-transport-https ca-certificates
-echo deb https://oss-binaries.phusionpassenger.com/apt/passenger bionic main > /etc/apt/sources.list.d/passenger.list
-apt install -y libapache2-mod-passenger # Phusion Passenger 5.0.30
-a2enmod passenger
-service apache2 restart
-/usr/sbin/passenger-memory-stats # just to check
 
 # Capistrano
 bundle exec cap install
@@ -234,4 +217,21 @@ sudo chmod 644 /var/log/apache2/*
 
 ```
 
+# Hook creation
+
+```
+header = {
+  "X-TOKEN" => SETTINGS[:calendly_api_key],
+}
+
+post_body    = {
+  url:    "http://instantly.globalmax.net/webhook_catch",
+  events: ['invitee.created'],
+}.stringify_keys!
+
+response = RestClient.post("#{SETTINGS[:calendly_api_url]}/hooks", post_body, header)
+JSON.parse response  # id 375151
+response = RestClient.get("#{SETTINGS[:calendly_api_url]}/hooks/375151", headers=header)
+response = RestClient.get("#{SETTINGS[:calendly_api_url]}/hooks/375880", headers=header)
+```
 
