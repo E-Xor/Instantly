@@ -15,8 +15,10 @@ gem 'sass-rails', '~> 5.0'
 gem 'webpacker', '>= 4.0.0.rc.3'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.5'
+# gem 'jbuilder', '~> 2.5' # causes warining in environm,ent.rb
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
@@ -31,6 +33,14 @@ gem 'bootsnap', '>= 1.4.1', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  # gem 'rspec-rails', '~> 3.8.2' # Has issues with Rails 6
+  gem 'rspec-rails', git: 'https://github.com/rspec/rspec-rails', branch: '4-0-dev'
+  gem 'rspec-core', git: 'https://github.com/rspec/rspec-core'
+  gem 'rspec-mocks', git: 'https://github.com/rspec/rspec-mocks'
+  gem 'rspec-support', git: 'https://github.com/rspec/rspec-support'
+  gem 'rspec-expectations', git: 'https://github.com/rspec/rspec-expectations'
+
+  gem 'rails-controller-testing', '~> 1.0.4'
 end
 
 group :development do
@@ -57,3 +67,5 @@ end
 gem 'tzinfo-data' # , platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'rest-client', '~> 2.0.2'
+
+

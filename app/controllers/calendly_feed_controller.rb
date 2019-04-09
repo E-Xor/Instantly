@@ -27,6 +27,7 @@ class CalendlyFeedController < ApplicationController
 
   def webhook_catch
     Rails.logger.info "Webhook catch"
+    Rails.logger.info "Webhook catch params: #{params.inspect}"
 
     if params['event'] == 'invitee.created'
       invitee_name = params['payload']['invitee']['first_name'].to_s + ' ' + params['payload']['invitee']['last_name'].to_s # con be nil, to_s ensures it's still a string
@@ -45,7 +46,6 @@ class CalendlyFeedController < ApplicationController
     render json: {success: true}
   rescue => e
     render json: {success: false}
-    raise
   end
 
 end
