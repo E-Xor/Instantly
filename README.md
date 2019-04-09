@@ -1,6 +1,9 @@
 # Instantly
 
-Calendly demo app
+* Includes instructions for local dev environment and fully working deployed version.
+* Available online at http://instantly.globalmax.net/
+* Includes RSpec tests
+* And of course, custom favicon
 
 # Process
 
