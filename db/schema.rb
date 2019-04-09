@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_08_011539) do
+ActiveRecord::Schema.define(version: 2019_04_09_144148) do
 
   create_table "events", force: :cascade do |t|
     t.string "uuid", null: false
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 2019_04_08_011539) do
     t.text "all_attributes"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "canceled"
   end
 
 end

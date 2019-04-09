@@ -26,10 +26,10 @@ class CalendlyFeedController < ApplicationController
   end
 
   def webhook_catch
-    Rails.logger.info "Webhook catch"
-    Rails.logger.info "Webhook catch params: #{params.inspect}"
 
     if params['event'] == 'invitee.created'
+      Rails.logger.info 'Create event'
+
       invitee_name = params['payload']['invitee']['first_name'].to_s + ' ' + params['payload']['invitee']['last_name'].to_s # con be nil, to_s ensures it's still a string
 
       Event.create!(
@@ -41,6 +41,15 @@ class CalendlyFeedController < ApplicationController
         invitee_event_name: params['payload']['invitee']['name'],
         all_attributes:     params.to_s
       )
+    elsif params['event'] == 'invitee.canceled'
+      Rails.logger.info 'Cancel event'
+
+      event = Event.find_by(uuid: params['payload']['event']['uuid'])
+      if event.present?
+        event.canceled = true # rails g migration add_canceled_to_event canceled:boolean
+        event.save!
+      end
+
     end
 
     render json: {success: true}

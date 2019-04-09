@@ -14,7 +14,12 @@
 
         <div class="d-flex justify-content-between">
 
-          <h5><%= e.invitee_event_name %></h5>
+          <h5>
+            <% if e.canceled %>
+              <span class="canceled-event">Canceled: </span>
+            <% end %>
+            <%= e.invitee_event_name %>
+          </h5>
 
           <div class="event-past-future float-right">
             <% if e.start_time < Time.now %>
