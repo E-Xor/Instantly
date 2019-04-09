@@ -26,7 +26,7 @@
 
         <div class="event-start">On <%= e.start_time.strftime("%B %d, %Y") %> at <%= e.start_time.strftime("%l:%M%P") %> for <%= distance_of_time_in_words(e.end_time-e.start_time) %></div>
 
-        <div class="event-invitee-name">With <%= e.invitee_name %> <%= e.invitee_email %></div>
+        <div class="event-invitee-email">Email: <%= e.invitee_email %></div>
       </div> 
     <% end %>
   </div>
