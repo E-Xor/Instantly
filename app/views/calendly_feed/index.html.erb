@@ -1,26 +1,33 @@
-<div id='calendly-name'><%= @me['data']['attributes']['name'] %></div>
-<div id='calendly-url'>
-  <a href="<%= @me['data']['attributes']['url'] %>" target="_blank">Schedule an event</a>
-</div>
-
-<div id='line'>========</div>
-
-<% @events.each do |e| %>
-========
-  <div class='event-card'>
-    <div class="event-start">On <%= e.start_time.strftime("%B %d, %Y") %> at <%= e.start_time.strftime("%l:%M%P") %></div>
-    <div class="event-end">On <%= e.end_time.strftime("%B %d, %Y") %> at <%= e.end_time.strftime("%l:%M%P") %></div>
-    <div class="event-past-future">
-      <% if e.start_time < Time.now %>
-        Past
-      <% else %>
-        Future
-      <% end %>
+<div class="row">
+  <div class="offset-lg-1 col-lg-3">
+    <div class="user-card shadow">
+      <div id='calendly-name'><%= @me['data']['attributes']['name'] %></div>
+      <div id='calendly-url'>
+        <a href="<%= @me['data']['attributes']['url'] %>" target="_blank">Schedule an event</a>
+      </div>
     </div>
-    <div class="event-length"><%= distance_of_time_in_words(e.end_time-e.start_time) %></div>
-    <div class="event-name"><%= e.invitee_event_name %></div>
-    <div class="event-invitee-name"><%= e.invitee_name %></div>
-    <div class="event-invitee-email"><%= e.invitee_email %></div>
-  </div> 
-========<br>
-<% end %>
+  </div>
+
+  <div class="col-lg-6">
+    <% @events.each do |e| %>
+      <div class="event-card">
+
+        <div class="d-flex justify-content-between">
+
+          <h5><%= e.invitee_event_name %></h5>
+
+          <div class="event-past-future float-right">
+            <% if e.start_time < Time.now %>
+              Past
+            <% end %>
+          </div>
+
+        </div>
+
+        <div class="event-start">On <%= e.start_time.strftime("%B %d, %Y") %> at <%= e.start_time.strftime("%l:%M%P") %> for <%= distance_of_time_in_words(e.end_time-e.start_time) %></div>
+
+        <div class="event-invitee-name">With <%= e.invitee_name %> <%= e.invitee_email %></div>
+      </div> 
+    <% end %>
+  </div>
+</div>

@@ -62,7 +62,7 @@ apt install --no-install-recommends yarn
 
 rails webpacker:install
 
-rails s -b 0.0.0.0
+bundle exec rails s -u webrick -b 0.0.0.0
 
 rails g controller CalendlyFeed
 
@@ -74,6 +74,12 @@ bundle exec cap install
 # add to ~/.bashrc
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_rsa
+
+# Bootstrap
+
+yarn add bootstrap-css-only
+
+
 ```
 
 ## EC2

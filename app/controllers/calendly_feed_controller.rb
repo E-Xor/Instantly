@@ -49,3 +49,4 @@ class CalendlyFeedController < ApplicationController
   end
 
 end
+
