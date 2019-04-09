@@ -237,14 +237,11 @@ header = {
 
 post_body    = {
   url:    "http://instantly.globalmax.net/webhook_catch",
-  events: ['invitee.created'],
+  events: ['invitee.canceled', 'invitee.created'],
 }.stringify_keys!
 
 response = RestClient.post("#{SETTINGS[:calendly_api_url]}/hooks", post_body, header)
-JSON.parse response  # id 375151
-response = RestClient.get("#{SETTINGS[:calendly_api_url]}/hooks/375151", headers=header)
-response = RestClient.delete("#{SETTINGS[:calendly_api_url]}/hooks/375151", header)
-
-response = RestClient.get("#{SETTINGS[:calendly_api_url]}/hooks/375880", headers=header)
+JSON.parse response  # id 376311
+response = RestClient.get("#{SETTINGS[:calendly_api_url]}/hooks/376311", headers=header)
+response = RestClient.delete("#{SETTINGS[:calendly_api_url]}/hooks/376311", header)
 ```
-
